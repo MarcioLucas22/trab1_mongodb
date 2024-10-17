@@ -1,0 +1,7 @@
+----- Instruções de configuração -----
+
+Rodar os seguintes comandos:
+py -m venv venv -> Comando para criação de um ambiente virtual
+venv/Scripts/activate -> Comando para ativar o ambiente virtual
+pip install -r requirements.txt -> Comando para baixar as dependências do projeto
+python.exe main.py -> Comando para rodar o script
