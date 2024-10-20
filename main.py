@@ -8,6 +8,13 @@ collection = db['registros']
 
 def cadastrar_registro():
     id = input("\nDigite o ID: ")
+
+    registro_existente = collection.find_one({"_id": id})
+
+    if registro_existente:
+        print(f"\nErro: O ID {id} já está cadastrado.\n")
+        return
+
     nome = input("Digite o Nome: ")
     email = input("Digite o Email: ")
     telefone = input("Digite o Telefone: ")
@@ -18,6 +25,7 @@ def cadastrar_registro():
         "email": email,
         "telefone": telefone
     }
+    
     collection.insert_one(novo_registro)
     print(f"\nRegistro {nome} adicionado com sucesso!\n")
 
@@ -28,7 +36,7 @@ def listar_registros():
     if num_registros == 0:
         print("\nNenhum registro encontrado.\n")
     else:
-        print(f"\nListando {num_registros} registro(s)...\n")
+        print(f"\nListando {num_registros} registro(s)...")
         for registro in collection.find():
             print(f"ID: {registro['_id']}, Nome: {registro['nome']}, Email: {registro['email']}, Telefone: {registro['telefone']}")
         print('')
@@ -36,6 +44,13 @@ def listar_registros():
 
 def atualizar_registro():
     id = input("\nDigite o ID do registro que deseja atualizar: ")
+
+    registro_existente = collection.find_one({"_id": id})
+
+    if not registro_existente:
+        print(f"\nErro: O ID {id} não existe.\n")
+        return
+
     novo_nome = input("Digite o novo Nome (pressione Enter para manter o atual): ")
     novo_email = input("Digite o novo Email (pressione Enter para manter o atual): ")
     novo_telefone = input("Digite o novo Telefone (pressione Enter para manter o atual): ")
@@ -56,8 +71,26 @@ def atualizar_registro():
 
 def excluir_registro():
     id = input("\nDigite o ID do registro que deseja excluir: ")
-    collection.delete_one({"_id": id})
-    print(f"\nRegistro {id} excluído com sucesso!\n")
+
+    registro_existente = collection.find_one({"_id": id})
+
+    if not registro_existente:
+        print(f"\nErro: O ID {id} não existe.\n")
+        return
+
+    resposta = input(f'\nTem certeja que deseja excluir o registro com ID {id}? Tecle 1 para SIM e 2 para NÃO ')
+
+    while True:
+        if resposta == '1':
+            collection.delete_one({"_id": id})
+            print(f"\nRegistro {id} excluído com sucesso!\n")
+            break
+        elif resposta == '2':
+            print('Cancelado...')
+            break
+        else:
+            print("Opção inválida...")
+            break
 
 
 def contar_registros():
