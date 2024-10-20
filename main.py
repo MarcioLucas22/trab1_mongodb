@@ -138,6 +138,6 @@ def menu():
         else:
             print("\nOpção inválida. Tente novamente.\n")
 
-# Executar o CLI
+
 if __name__ == "__main__":
     menu()

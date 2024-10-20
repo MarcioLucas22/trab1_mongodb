@@ -1,5 +1,7 @@
 ----- Instruções de configuração -----
 
+Link para o vídeo: https://youtu.be/MGTko6PfmdA
+
 Rodar os seguintes comandos:
 py -m venv venv -> Comando para criação de um ambiente virtual
 venv/Scripts/activate -> Comando para ativar o ambiente virtual
